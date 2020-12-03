@@ -28,7 +28,6 @@ public class TobogganTrajectoryFirst {
     }
 }
 
-
 class DataFirst {
 
     public final List<String> map;

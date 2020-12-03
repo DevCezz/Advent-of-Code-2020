@@ -27,7 +27,6 @@ public class PasswordPhilosophySecond {
     }
 }
 
-
 class DataSecond {
 
     public final int firstIndex;

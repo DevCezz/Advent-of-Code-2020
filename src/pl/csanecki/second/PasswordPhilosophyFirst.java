@@ -27,7 +27,6 @@ public class PasswordPhilosophyFirst {
     }
 }
 
-
 class DataFirst {
 
     public final int lowerBound;

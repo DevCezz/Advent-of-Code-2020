@@ -42,7 +42,6 @@ public class TobogganTrajectorySecond {
     }
 }
 
-
 class DataSecond {
 
     public final List<String> map;
