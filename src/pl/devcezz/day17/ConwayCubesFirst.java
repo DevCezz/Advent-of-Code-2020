@@ -21,7 +21,7 @@ public class ConwayCubesFirst {
     }
 
     public static void main(String[] args) {
-        List<String> data = readData("data/day17/example.txt");
+        List<String> data = readData("data/day17/task.txt");
 
         char[][][] cubes = new char[data.size() + 2 * (TIMES + 1)][data.size() + 2 * (TIMES + 1)][1 + 2 * (TIMES + 1)];
         makeAllInactive(cubes);
@@ -34,58 +34,58 @@ public class ConwayCubesFirst {
             }
         }
 
-        print(cubes);
+        for (int times = 0; times < TIMES; times++) {
+            char[][][] newCubes = new char[cubes.length][cubes[0].length][cubes[0][0].length];
+            makeAllInactive(newCubes);
+            for (int i = 1; i < cubes.length - 1; i++) {
+                for (int j = 1; j < cubes[i].length - 1; j++) {
+                    for (int k = 1; k < cubes[i][j].length - 1; k++) {
+                        char currentCube = cubes[i][j][k];
 
-        char[][][] newCubes = new char[cubes.length][cubes[0].length][cubes[0][0].length];
-        makeAllInactive(newCubes);
-        for (int i = 1; i < cubes.length - 1; i++) {
-            for (int j = 1; j < cubes[i].length - 1; j++) {
-                for (int k = 1; k < cubes[i][j].length - 1; k++) {
-                    char currentCube = cubes[i][j][k];
+                        if (currentCube == ACTIVE) {
+                            int count = 0;
+                            for (int l = -1; l <= 1; l++) {
+                                for (int m = -1; m <= 1; m++) {
+                                    for (int n = -1; n <= 1; n++) {
+                                        if (l == m && l == n && l == 0) {
+                                            continue;
+                                        }
 
-                    if (currentCube == ACTIVE) {
-                        int count = 0;
-                        for (int l = -1; l <= 1; l++) {
-                            for (int m = -1; m <= 1; m++) {
-                                for (int n = -1; n <= 1; n++) {
-                                    if (l == m && l == n && l == 0) {
-                                        continue;
-                                    }
-
-                                    if (cubes[i + l][j + m][k + n] == ACTIVE) {
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                        if (!(count == 2 || count == 3)) {
-                            newCubes[i][j][k] = INACTIVE;
-                        } else {
-                            newCubes[i][j][k] = ACTIVE;
-                        }
-                    } else if (currentCube == INACTIVE) {
-                        int count = 0;
-                        for (int l = -1; l <= 1; l++) {
-                            for (int m = -1; m <= 1; m++) {
-                                for (int n = -1; n <= 1; n++) {
-                                    if (l == m && l == n && l == 0) {
-                                        continue;
-                                    }
-
-                                    if (cubes[i + l][j + m][k + n] == ACTIVE) {
-                                        count++;
+                                        if (cubes[i + l][j + m][k + n] == ACTIVE) {
+                                            count++;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        if (count == 3) {
-                            newCubes[i][j][k] = ACTIVE;
+                            if (!(count == 2 || count == 3)) {
+                                newCubes[i][j][k] = INACTIVE;
+                            } else {
+                                newCubes[i][j][k] = ACTIVE;
+                            }
+                        } else if (currentCube == INACTIVE) {
+                            int count = 0;
+                            for (int l = -1; l <= 1; l++) {
+                                for (int m = -1; m <= 1; m++) {
+                                    for (int n = -1; n <= 1; n++) {
+                                        if (l == m && l == n && l == 0) {
+                                            continue;
+                                        }
+
+                                        if (cubes[i + l][j + m][k + n] == ACTIVE) {
+                                            count++;
+                                        }
+                                    }
+                                }
+                            }
+                            if (count == 3) {
+                                newCubes[i][j][k] = ACTIVE;
+                            }
                         }
                     }
                 }
             }
+            cubes = newCubes;
         }
-        print(newCubes);
 
         int active = 0;
         for (int i = 1; i < cubes.length - 1; i++) {
